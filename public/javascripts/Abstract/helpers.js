@@ -21,8 +21,8 @@ function prepareInitialWorkSpace() {
     }
 
     function getWordCount(text) {
-
-        return text.split(/\s+\b/).length;
+	var strippedText = $('<span>'+text+'</span>').text();
+        return strippedText.split(/\s+\b/).length;
     }
 
     function setHtmlinPreviewPane(markdownText) {

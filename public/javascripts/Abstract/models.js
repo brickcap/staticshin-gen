@@ -65,7 +65,7 @@ editArea.trigger('autosize');
 				
 				saveAndPreview.hide();
                 setHtmlinPreviewPane(getMarkdownText());
-                plainViewButton.hide();
+		 plainViewButton.hide();
                 self.showEditor(false);
                 self.showTitle(true);
                 showThis([rawHtmlExpression,previewContainerExpression]);
