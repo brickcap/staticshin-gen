@@ -1,7 +1,7 @@
 exports.preferences = {
 	// reference :	https://github.com/brislink/specter/wiki/preferences-documentation 	 
 	
-	"databaseUrl"   :"http://gotbsgju.api.qbox.io/",
+	"databaseUrl"   :"http://localhost:9200/",
 	"searchResults" :5,
 	
 	"index" : {

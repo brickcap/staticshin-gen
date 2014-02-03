@@ -5,7 +5,7 @@ var engines = require('consolidate');
 exports.configureExpress = function(app){
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 5000);
 app.set('views', __dirname + '/views');
 app.engine('html',engines.mustache);    
 app.set('view engine', 'html');
