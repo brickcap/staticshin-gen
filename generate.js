@@ -12,7 +12,7 @@ request("http://localhost:9200/blog/_search?size=74",function(error,response,bod
 	var hit = hits[i];
 	var id = hit._id;
 	
-	hit._source.date = new Date(hit._source.date).toDateString();	
+	hit._source.postedOn = new Date(hit._source.postedOn).toDateString();	
 	var temp =  fs.readFileSync('views/post_template.html');
 	//console.log(hit._source);
 	var render =mustache.render(temp.toString(),hit);
