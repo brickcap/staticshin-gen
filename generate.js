@@ -1,23 +1,22 @@
 var request = require('request');
 var consolidate = require('consolidate');
-var fs = require('fs');
+var mustache = require('mustache');
+var fs = require('fs-extra');
 
 request("http://localhost:9200/blog/_search?size=74",function(error,response,body){
     var parsed = JSON.parse(body);
     var hits = parsed.hits.hits;
+    //console.log(hits[0]);
     var i=0;
     for(i;i<hits.length;i++){
-
-	fs.mkdir('../staticshin/'+hits[i]._id,function(err){
-	   console.log(err);
-	    if(err&&!hits[i])return;
-	    var item = hits[i]._source;
-	    item.date = new Date(item.date).toDateString();
-	    console.log(i);
-	    consolidate.mustache('../views/post_template.html',item,function(err,html){
-	//	console.log(i);
-		fs.writeFile("index.html",html);
-	    });
-	});
+	var hit = hits[i];
+	var id = hit._id;
+	
+	hit._source.date = new Date(hit._source.date).toDateString();	
+	var temp =  fs.readFileSync('views/post_template.html');
+	//console.log(hit._source);
+	var render =mustache.render(temp.toString(),hit);
+	fs.outputFileSync('/home/akshat/Desktop/EVERYTHING/Repo/staticshin/'+id+'/index.html',render);
+	
     }
 });
