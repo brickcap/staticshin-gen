@@ -1,0 +1,62 @@
+#searchBox{
+    
+    border:none;
+    outline:none;
+    font-size:25px;
+    box-shadow: none;
+    text-align:center;
+    margin-top:10px;
+}
+
+#results li {
+
+font-size:20px;    
+text-align:center;
+line-height:28px;
+}
+
+
+figcaption{
+display:none;
+}
+
+figure{
+margin:0px;
+}
+
+.postHeading{
+font-size: 20px;
+line-height: 28px;
+
+}
+
+.postBody{
+font-size: 17px;
+line-height: 30px;
+color: black;
+	
+}
+
+.postBody a,ul a{
+	color:black;
+
+}
+
+blockquote{
+
+padding: 15px 15px 15px 15px;
+margin: 0 0 20px;
+border-left: 5px solid black;
+background-color: whitesmoke;
+
+}
+
+blockquote p {
+margin-bottom: 5px;
+font-size: 17px;
+line-height: 30px;
+}
+code,pre code{
+	font-size: 17px;
+	line-height: 25px;
+}

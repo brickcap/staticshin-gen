@@ -1,0 +1,26 @@
+{
+"name": "specter",
+"version": "0.0.1",
+"private": true,
+"scripts": {
+"start": "node server.js"
+},
+"dependencies": {
+
+"express": "3.2.5",
+"mustache": "*",
+"request" : "*",
+"buildify":"*",
+"cheerio" : "*",
+"slugs" : "*",
+"consolidate":"*",
+"feed" : "*"	
+},
+
+"engines":{
+		
+"node" : "0.8.14",
+"npm" : "1.2.14"				
+}
+
+}

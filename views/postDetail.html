@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{_source.title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="//netdna.bootstrapcdn.com/bootswatch/2.3.2/journal/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="/styles/globalStyles.css">
+      <style>
+    a,a:hover{
+      text-decoration:none;
+    }
+    li,li p{  
+  line-height:30px;
+}
+
+    pre{
+      border-left:5px solid black;
+      width:100%;
+      color:#d14;     
+    } 
+  </style>
+  </head>
+	
+  <body>
+	  
+	   <div class="container-fluid" style="padding-top:10px;">
+    <ul class="inline" style="text-align:center;">
+      <li><h1><a href="/" style="color:black">staticshin</a></h1><hr></li>
+    </ul>
+     
+</div>
+       <div class="continer-fluid">
+          <div class="row-fluid">
+              <input type="text" placeholder="Search" class="span12" id="searchBox" data-bind="value:searchText,valueUpdate:'afterkeydown',event:{'keydown':keydown}">
+                        </div>
+          <div class="row-fluid">
+            <div class="span11 offset1">  
+               <ul class="unstyled" id="results" style="display:none;" data-bind="visible:true">
+                   <!-- ko foreach: searchResults -->
+                  <li><p><span><a data-bind="attr:{href:'/'+_id},text:fields.title"></a></span> <span  style="font-size:17px;" data-bind="text:fields.wordCount +' '+ 'words'"></span></p></li>
+                  <!-- /ko -->
+              </ul>
+</div>
+          </div>
+      </div>
+<div class="row-fluid"><hr></div>	  
+    <div class="container-fluid">
+        <div class="row-fluid">
+        <div class="span10 offset1">
+            <h1 class="postHeading">{{_source.title}}</h1>
+            <ul class="inline">
+                <li>{{_source.postedBy}}</li>
+                <li>{{_source.postedOn}}</li>
+            </ul>
+			</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span10 offset1">
+				<div class="postBody">{{{_source.postHtml}}}</div>
+					<ul class="inline">{{#_source.tags}}<li><a href="/tag/{{.}}">[{{.}}]</a></li>{{/_source.tags}}</ul>
+			<hr>
+					<div id="disqus_thread"></div>
+ <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+			</div>
+			</div>
+		
+			
+ <div><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div>
+  
+        </div>
+ <div class="row-fluid" style="
+">
+<hr>
+	<div class="span10" style="
+    margin-top: 10px;
+">
+<p>Powered by <a href="http://brislink.github.io/specter">specter</a> .
+	<p>&copy; Akshat Jiwan Sharma</p>	
+</div>
+	
+	
+</div>	  	  
+	  <hr>
+<ul class="inline pull-right"><li><a href="/me/about.html">about</a></li><li><a href="/blog/archives">archives</a><li><a href="/feed/rss">rss</a></li><li><a href="/feed/atom">atom</a></li></ul>	  
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+      <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+      <script type="text/javascript" src="/javascripts/search.min.js"></script>
+	  <script type="text/javascript">
+ /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+           var disqus_shortname = 'staticshin'; // required: replace example with your forum shortname
+
+           /* * * DON'T EDIT BELOW THIS LINE * * */
+           (function ()
+           {
+             var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+             dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+           })();
+
+           var _gaq = _gaq || [];
+           _gaq.push(['_setAccount', 'UA-37138783-1']);
+           _gaq.push(['_trackPageview']);
+
+           (function ()
+           {
+             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+           })();
+
+           </script>
+  </body>
+</html>
