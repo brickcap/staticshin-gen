@@ -1,7 +1,7 @@
 var constants = require('../constants');
 var request = require('request');
 var helpers = require('../helpers');
-
+var rimraf = require("rimraf");
 
 exports.getPostToDelete = function(req,res){
     
@@ -26,6 +26,9 @@ exports.deletePost = function(req,res){
     request.del(url,function(error,response,body){
         
         if(error) return res.send(500);
+	rimraf("/home/akshat/Desktop/EVERYTHING/Repo/staticshin/"+id,function(err){
+	    console.log(err);
+	});
         return res.send(200);
     });
 };
