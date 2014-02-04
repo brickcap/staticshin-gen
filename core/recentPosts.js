@@ -2,7 +2,7 @@ var request = require('request');
 var helpers = require('../helpers');
 var preferences = require('../preferences').preferences;
 var constants = require('../constants');
-
+var fs = require("fs-extra");
 
 exports.getRecentPosts = function(req,res,api){
 
