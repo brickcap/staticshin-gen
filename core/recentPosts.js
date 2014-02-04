@@ -3,6 +3,7 @@ var helpers = require('../helpers');
 var preferences = require('../preferences').preferences;
 var constants = require('../constants');
 var fs = require("fs-extra");
+var mustache = require("mustache");
 
 exports.getRecentPosts = function(req,res,api){
 
@@ -37,6 +38,9 @@ exports.getRecentPosts = function(req,res,api){
 
         	return res.json(dataToRender);
         }
+	var temp =  fs.readFileSync('views/index_template.html');
+	var render =mustache.render(temp.toString(),dataToRender);
+	fs.outputFileSync("/home/akshat/Desktop/EVERYTHING/Repo/staticshin/index.html",render);
         return res.render(constants.views.home,dataToRender);
     });
 };
