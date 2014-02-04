@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>previous posts</title>
+        <link href="./style.css" rel="stylesheet"/>
+    </head>
+    <body>
+      <h1>staticshin archives</h1>
+      <ol>
+        {{#archives}}
+        <li><p><a href="/{{_id}}">{{fields.title}}</a> </p>
+          <p>{{fields.postedOn}}, {{fields.wordCount}} words</p>
+	</li>
+        {{/archives}}
+      </ol>
+      <hr/>
+<span>
+    <a href="/about.html">about</a>
+    <a href="/archives.html">archives</a>
+</span>
+    </body>
+</html>
