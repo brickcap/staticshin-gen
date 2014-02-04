@@ -17,7 +17,7 @@ exports.getRecentPosts = function(req,res,api){
 				
 		var hasPosts = error|| !body || body.error || body.hits.hits.length===0?false:true;
 		if(!hasPosts&&!api){return res.redirect('/create');}
-		if(!hasPosts && api){return res.json(null)};
+		if(!hasPosts && api){return res.json(null);};
 		var total = body.hits.hits.length;
 
         var resultCount = paginationSize - 1;
@@ -30,7 +30,7 @@ exports.getRecentPosts = function(req,res,api){
 			total: total,
 			preferences : preferences,
 			index: preferences.index
-		}
+		};
 		
         var dataToRender = helpers.buildResponse(common);
         if(api){
