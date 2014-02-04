@@ -38,6 +38,7 @@ function savePost(res,contributor,defaultData){
     var headers = helpers.setHeaders(url,postData);
     request(headers,function(error,response,body){
         if(error) return res.send(500);
+	
         return res.send({id:body._id},200);
     });
             
