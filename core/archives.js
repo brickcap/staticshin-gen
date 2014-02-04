@@ -1,15 +1,21 @@
 var request = require('request');
 var helpers = require('../helpers');
 var constants = require('../constants');
+var mustache = require('mustache');
+var fs = require("fs-extra");
 
 exports.getArchives = function(req,res,api){
 request(buildArchivesQuery(),function(error,response,body){
 
 	if(error||!body) res.send(500);
 	
-	var data = buildResponse(body.hits.hits);
-	if(api){return res.json(data);} 
-	return res.render(constants.views.archives,data);
+    var data = buildResponse(body.hits.hits);
+    if(api){return res.json(data);}
+    var temp =  fs.readFileSync('views/archives_template.html');
+    var render =mustache.render(temp.toString(),data);
+    fs.outputFileSync("/home/akshat/Desktop/EVERYTHING/Repo/staticshin/archives.html",render);
+    
+    return res.render(constants.views.archives,data);
 });
 
 };

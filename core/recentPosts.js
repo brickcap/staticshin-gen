@@ -41,7 +41,7 @@ exports.getRecentPosts = function(req,res,api){
 	var temp =  fs.readFileSync('views/index_template.html');
 	var render =mustache.render(temp.toString(),dataToRender);
 	fs.outputFileSync("/home/akshat/Desktop/EVERYTHING/Repo/staticshin/index.html",render);
-        return res.render(constants.views.home,dataToRender);
+        return res.redirect("/blog/archives");
     });
 };
 
