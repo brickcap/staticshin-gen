@@ -10,8 +10,9 @@
       
 	{{#hits}}
         <h1 class="postHeading"><a href="/{{_id}}">{{fields.title}}</a></h1>
-        <div>{{fields.wordCount}} words {{fields.postedOn}}</div>
+        <div class="postMeta">-{{fields.postedOn}}</div>
         <div>{{{fields.postHtml}}}</div>
+        <a href="/{{_id}}">read more</a>
 	<hr>
 	{{/hits}}	
       
