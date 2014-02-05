@@ -6,8 +6,8 @@ exports.preferences = {
 	
 	"index" : {
 	
-	"pageFields":["postedBy","postedOn","title","wordCount"],
-	"summaryLength" : 0,
+	"pageFields":["postedBy","postedOn","title","wordCount","postHtml"],
+	"summaryLength" : 2,
 	"paginationSize" :11
 		
 	},

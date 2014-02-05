@@ -10,4 +10,4 @@ exports.getTaggedPostsAPI = function(req,res){
 
 	return core.getTaggedPosts(req,res,true);
 
-}
+};
