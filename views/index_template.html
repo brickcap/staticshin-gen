@@ -1,39 +1,41 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8"/>
-        <title>staticshin</title>
-        <link href="./style.css" rel="stylesheet"/>
-    </head>
-    <body>
-     <h1><a href="/">staticshin</a></h1>
-      
-	{{#hits}}
-        <h1 class="postHeading"><a href="/{{_id}}">{{fields.title}}</a></h1>
-        <div class="postMeta">-{{fields.postedOn}}</div>
-        <div>{{{fields.postHtml}}}</div>
-        <a href="/{{_id}}">read more</a>
-	<hr>
-	{{/hits}}	
-      
-  
-   <span>
-     <a href="/about.html">about</a>
-     <a href="/archives.html">archives</a>
-   </span>
-   
-<script type="text/javascript">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>staticshin</title>
+    <link href="./style.css" rel="stylesheet"/>
+  </head>
+  <body>
+    <h1><a href="/">staticshin</a></h1>
+    
+    {{#hits}}
+    <div class="post">
+      <h1 class="postHeading"><a href="/{{_id}}">{{fields.title}}</a></h1>
+      <div class="postMeta">-{{fields.postedOn}}</div>
+      <div>{{{fields.postHtml}}}</div>
+      <a href="/{{_id}}">read more</a>
+      <hr>
+    </div>
+    {{/hits}}	
+    
+    
+    <span>
+      <a href="/about.html">about</a>
+      <a href="/archives.html">archives</a>
+    </span>
+    
+    <script type="text/javascript">
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-37138783-1']);
-  _gaq.push(['_trackPageview']);
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-37138783-1']);
+      _gaq.push(['_trackPageview']);
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+      (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
 
-</script>
-    </body>
+    </script>
+  </body>
 </html>
