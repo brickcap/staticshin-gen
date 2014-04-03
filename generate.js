@@ -16,7 +16,7 @@ request("http://localhost:9200/blog/_search?size=74",function(error,response,bod
 	var temp =  fs.readFileSync('views/post_template.html');
 	//console.log(hit._source);
 	var render =mustache.render(temp.toString(),hit);
-	fs.outputFileSync('/home/akshat/Desktop/EVERYTHING/Repo/staticshin/'+id+'/index.html',render);
+	fs.outputFileSync('/home/akshat/Repo/staticshin/'+id+'/index.html',render);
 	
     }
 });

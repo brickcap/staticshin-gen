@@ -26,7 +26,7 @@ exports.deletePost = function(req,res){
     request.del(url,function(error,response,body){
         
         if(error) return res.send(500);
-	rimraf("/home/akshat/Desktop/EVERYTHING/Repo/staticshin/"+id,function(err){
+	rimraf("/home/akshat/Repo/staticshin/"+id,function(err){
 	    console.log(err);
 	});
         return res.send(200);

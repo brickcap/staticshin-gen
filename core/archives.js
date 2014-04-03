@@ -13,7 +13,7 @@ request(buildArchivesQuery(),function(error,response,body){
     if(api){return res.json(data);}
     var temp =  fs.readFileSync('views/archives_template.html');
     var render =mustache.render(temp.toString(),data);
-    fs.outputFileSync("/home/akshat/Desktop/EVERYTHING/Repo/staticshin/archives.html",render);
+    fs.outputFileSync("/home/akshat/Repo/staticshin/archives.html",render);
     
     return res.render(constants.views.archives,data);
 });

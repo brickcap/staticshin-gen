@@ -40,7 +40,7 @@ exports.getRecentPosts = function(req,res,api){
         }
 	var temp =  fs.readFileSync('views/index_template.html');
 	var render =mustache.render(temp.toString(),dataToRender);
-	fs.outputFileSync("/home/akshat/Desktop/EVERYTHING/Repo/staticshin/index.html",render);
+	fs.outputFileSync("/home/akshat/Repo/staticshin/index.html",render);
         return res.redirect("/blog/archives");
     });
 };
