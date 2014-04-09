@@ -3,7 +3,7 @@ var consolidate = require('consolidate');
 var mustache = require('mustache');
 var fs = require('fs-extra');
 
-request("http://localhost:9200/blog/_search?size=74",function(error,response,body){
+request("http://localhost:9200/blog/_search?size=79",function(error,response,body){
     var parsed = JSON.parse(body);
     var hits = parsed.hits.hits;
     //console.log(hits[0]);
