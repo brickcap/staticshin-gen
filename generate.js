@@ -15,6 +15,8 @@ request("http://localhost:9200/blog/_search?size=79",function(error,response,bod
 	hit._source.postedOn = new Date(hit._source.postedOn).toDateString();	
 	var temp =  fs.readFileSync('views/post_template.html');
 	//console.log(hit._source);
+	var header = fs.readFileSync('views/header.html');
+	hit.header = header;
 	var render =mustache.render(temp.toString(),hit);
 	fs.outputFileSync('/home/akshat/Repo/staticshin/'+id+'/index.html',render);
 	
