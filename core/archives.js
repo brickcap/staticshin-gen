@@ -12,6 +12,8 @@ request(buildArchivesQuery(),function(error,response,body){
     var data = buildResponse(body.hits.hits);
     if(api){return res.json(data);}
     var temp =  fs.readFileSync('views/archives_template.html');
+    var header = fs.readFileSync('views/header.html');
+    data.header = header;
     var render =mustache.render(temp.toString(),data);
     fs.outputFileSync("/home/akshat/Repo/staticshin/archives.html",render);
     

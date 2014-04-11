@@ -12,6 +12,8 @@ exports.postDetail = function(req,res){
         var parsed = JSON.parse(body);      
         parsed._source.postedOn = new Date(parsed._source.postedOn).toDateString();
 	    var temp =  fs.readFileSync('views/post_template.html');
+	    var header = fs.readFileSync('views/header.html');
+	    parsed.header = header;
 	    var render =mustache.render(temp.toString(),parsed);
 	    fs.outputFileSync('/home/akshat/Repo/staticshin/'+parsed._id+'/index.html',render);
 	    
