@@ -10,8 +10,8 @@
       
       <ol class="post">
         {{#archives}}
-        <li><p><a href="/{{_id}}">{{fields.title}}</a> </p>
-          <p>{{fields.postedOn}}, {{fields.wordCount}} words</p>
+        <li><p><a href="/{{_id}}">{{fields.title}}</a> <small>/{{fields.postedOn}}, {{fields.wordCount}} words</small></p>
+         
 	</li>
         {{/archives}}
       </ol>
