@@ -39,6 +39,8 @@ exports.getRecentPosts = function(req,res,api){
         	return res.json(dataToRender);
         }
 	var temp =  fs.readFileSync('views/index_template.html');
+	var header = fs.readFileSync('views/header.html');
+	dataToRender.header = header;
 	var render =mustache.render(temp.toString(),dataToRender);
 	fs.outputFileSync("/home/akshat/Repo/staticshin/index.html",render);
         return res.redirect("/blog/archives");
