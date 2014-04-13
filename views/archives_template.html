@@ -1,24 +1,24 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8"/>
-        <title>previous posts</title>
-        <link href="./style.css" rel="stylesheet"/>
-    </head>
-    <body>
-      {{{header}}}    
-      
-      <ol class="post">
-        {{#archives}}
-        <li><p><a href="/{{_id}}">{{fields.title}}</a> <small>/{{fields.postedOn}}, {{fields.wordCount}} words</small></p>
-         
-	</li>
-        {{/archives}}
-      </ol>
-      <hr/>
-<span>
-    <a href="/about.html">about</a>
-    <a href="/archives.html">archives</a>
-</span>
-    </body>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>previous posts</title>
+    <link href="./style.css" rel="stylesheet"/>
+  </head>
+  <body>
+    {{{header}}}    
+    
+    <ol class="post">
+      {{#archives}}
+      <li><p><a href="/{{_id}}">{{fields.title}}</a> <small>/ {{fields.postedOn}}, {{fields.wordCount}} words</small></p>
+        
+      </li>
+      {{/archives}}
+    </ol>
+    <hr/>
+<footer>
+    <h1>Thank you for reading</h1>
+</footer>
+    <script src="./staticshin.js"> </script>
+  </body>
 </html>
