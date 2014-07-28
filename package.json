@@ -14,7 +14,9 @@
 "cheerio" : "*",
 "slugs" : "*",
 "consolidate":"*",
-"feed" : "*"	
+"feed" : "*",
+"handlebars":"*",
+"underscore":"*"	
 },
 
 "engines":{
