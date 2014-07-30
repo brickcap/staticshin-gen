@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Staticshin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="//netdna.bootstrapcdn.com/bootswatch/2.3.2/journal/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="/styles/globalStyles.css">
+	 <style>
+		a,a:hover{
+			text-decoration:none;
+		}
+		li,li p{	
+	line-height:30px;
+}
+
+		pre{
+			border-left:5px solid black;
+			width:100%;
+			color:#d14;			
+		} 
+	</style>
+  </head>
+
+  <body>
+	  <div class="container-fluid" style="padding-top:10px;">
+    <ul class="inline" style="text-align:center;">
+      <li><h1><a href="/">staticshin</a></h1><hr></li>
+    </ul>
+
+</div>
+      <div class="continer-fluid">
+          <div class="row-fluid">
+              <input type="text" placeholder="Search" class="span12" id="searchBox" data-bind="value:searchText,valueUpdate:'afterkeydown',event:{'keydown':keydown}">
+                        </div>
+          <div class="row-fluid">
+            <div class="span10 offset1">
+              <ul class="unstyled" id="results" style="display:none;" data-bind="visible:true">
+                   <!-- ko foreach: searchResults -->
+                  <li><p><span><a data-bind="attr:{href:'/'+_id},text:fields.title"></a></span> <span  style="font-size:17px;" data-bind="text:fields.wordCount +' '+ 'words'"></span></p></li>
+                  <!-- /ko -->
+              </ul>
+</div>
+          </div>
+      </div>
+	  <hr>
+      <div class="container-fluid">
+		  <div class="row-fluid">
+			  <div class="span12">
+				   {{#hits.0}}
+          <p class="lead" style="text-align:center;">Search results for "{{query}}"<p>
+        {{/hits.0}}
+              
+              {{^hits}}
+              <p class="lead" style="text-align:center;">No results found for "{{query}}"<p>
+              {{/hits}}     
+			  </div>
+		  </div>
+          {{#hits}}
+
+          <div class="row-fluid">
+              <div class="offset2 span9">
+				 <p>My name is Akshat Jiwan Sharma. I live in Gurgaon, India. It used to be a small town though it is not anymore. I graduated in computer science in 2011. For a while I worked with various organizations but I finally decided to go independent in 2012. I worked for a bit on <a href="https://www.odesk.com/users/~01ee4d19be0ec63fe0">odesk</a> but I left that as well. </p> <p>As of now I do programming only as a hobby just to solve my own problems. I have a few projects on my <a href="https://github.com/brickcap">github</a> account : </p> <ol> <li><a href="https://github.com/brislink/Abstract">Abstract</a> a drafting tool that I use daily for writing stuff.</li> <li><a href="https://github.com/brislink/specter">Specter</a> a blogging platform which I use every three days to write blog posts.</li> </ol> <p>I used to be a c# programmer by now a days I mostly program with javascript both on client side and server side. I am learning erlang as well, very slowly. </p> <p>I blog on a variety of topics. It is mostly about video games as I spend a lot of time playing them but mostly I like to write about my experiences which can be anything under the sun that I happen to be doing at that time. To be frank with you I write to keep sane. I have discovered that writing is a good remedy for confusion and anxiety. It calms me down and makes me look at my problems more objectively. </p> <p>You can email me at </p> <p>akshat_fullmetal@yahoo.co.in</p> <p>or</p> <p>akshatjiwan@gmail.com</p> <p>My psn id is dezvatom. If you want to challenge me in chess <a href="http://www.chess.com/members/view/ninety9problems">here</a> is a link to my profile. I am also on <a href="https://twitter.com/brickcap">twitter</a> though I am not much active there. </p>
+
+
+
+              </div>
+          </div>
+
+          
+      </div>
+	  
+<div class="row-fluid" style="
+">
+<hr>
+	<div class="span10" style="
+    margin-top: 10px;
+">
+<p>Powered by <a href="http://brislink.github.io/specter">specter</a> .
+	<p>&copy; Akshat Jiwan Sharma</p>	
+</div>
+</div>
+<hr>
+<ul class="inline pull-right"><li><a href="/about.html">about</a><li><li><a href="/blog/archives">archives</a><li><a href="/feed/rss">rss</a></li><li><a href="/feed/atom">atom</a></li></ul>	  
+	  
+      <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+      <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+      <script type="text/javascript" src="/javascripts/search.min.js"></script>
+
+  </body>
+</html>
