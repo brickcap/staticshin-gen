@@ -1,0 +1,10 @@
+{
+    "env": {
+	"default":{
+	    "db":"http://ABBA:dancing-queen@localhost:5984/staticshin"
+	},
+	"prod":{
+	    "db":"http://ABBA:dancing-queen@localhost:5984/test"
+	}
+    }
+}
