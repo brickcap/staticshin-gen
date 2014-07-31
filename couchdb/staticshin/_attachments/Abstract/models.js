@@ -17,7 +17,6 @@ var draft = function (parsed, title) {
         self.showEditor = ko.observable(true);
         self.showTitle = ko.observable(true);
         self.raw = ko.observable(true);
-        self.secret = ko.observable();
         self.currentKey = '';
 
         self.clearCurrentWorkSpace = function(){
@@ -126,9 +125,7 @@ editArea.trigger('autosize');
             event.stopPropagation();
         };
         
-        self.hasProvidedSecret = ko.computed(function(){            
-        return self.secret()?true:false;
-        });
+       
 
         
         self.publishArticle = function(data,event){
