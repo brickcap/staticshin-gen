@@ -1723,221 +1723,218 @@ if (typeof exports === 'object') {
 
 var draft = function (parsed, title) {
 
-        var self = this;
-		var wordCount = parsed.wordCount;
-        self.date = new Date(parsed.time).toDateString();
-        self.count = wordCount;
-        self.title = title;
-        self.plural = wordCount > 1;
-        self.trueDate = new Date(parsed.time);
+    var self = this;
+    var wordCount = parsed.wordCount;
+    self.date = new Date(parsed.time).toDateString();
+    self.count = wordCount;
+    self.title = title;
+    self.plural = wordCount > 1;
+    self.trueDate = new Date(parsed.time);
+
+};
+
+var viewModel = function (drafts) {
+
+    var self = this;
+    self.drafts = ko.observableArray(drafts);
+    self.showEditor = ko.observable(true);
+    self.showTitle = ko.observable(true);
+    self.raw = ko.observable(true);
+    self.currentKey = '';
+
+    self.clearCurrentWorkSpace = function(){
+        self.currentKey = '';
+        titleContainer.val('');
+        editArea.val('');
+    };
+    
+    self.deleteDraft = function (draft, event) {
+
+        self.clearCurrentWorkSpace();
+        event.stopPropagation();
+        removeDraft(draft.title);
+        self.drafts.remove(draft);
 
     };
 
-    var viewModel = function (drafts) {
+    self.showDrafts = function () {
+	
+	self.saveAndNotify();
+	previewContainerView.hide();
+        self.showEditor(false);			
+        self.showTitle(false);
+        renderSavedDrafts();            
+	$("#tags_tagsinput").hide();
+	draftsView.show();
+	saveAndPreview.hide();
+    };
 
-        var self = this;
-        self.drafts = ko.observableArray(drafts);
-        self.showEditor = ko.observable(true);
-        self.showTitle = ko.observable(true);
-        self.raw = ko.observable(true);
-        self.secret = ko.observable();
-        self.currentKey = '';
+    self.newDraft = function () {
+	self.saveAndNotify();
+        hideThis([previewContainerExpression,draftsExpression]);
+        self.clearCurrentWorkSpace();
+	editArea.trigger('autosize');
+        self.showTitle(true);
+        self.showEditor(true);
+        titleContainer.val('');
+	$("#tags_tagsinput").show();
+	saveAndPreview.show();
+    };
 
-        self.clearCurrentWorkSpace = function(){
-            self.currentKey = '';
-            titleContainer.val('');
-            editArea.val('');
-        };
-        
-        self.deleteDraft = function (draft, event) {
-
-            self.clearCurrentWorkSpace();
-            event.stopPropagation();
-            removeDraft(draft.title);
-            self.drafts.remove(draft);
-
-        };
-
-        self.showDrafts = function () {
-			
-			self.saveAndNotify();
-			previewContainerView.hide();
-            self.showEditor(false);			
-            self.showTitle(false);
-            renderSavedDrafts();            
-			$("#tags_tagsinput").hide();
-			draftsView.show();
-			saveAndPreview.hide();
-        };
-
-        self.newDraft = function () {
-			self.saveAndNotify();
-            hideThis([previewContainerExpression,draftsExpression]);
-            self.clearCurrentWorkSpace();
-editArea.trigger('autosize');
+    self.showPreview = function () {				
+	
+        if (validateInputOnFousOut()) {
+	    
+	    saveAndPreview.hide();
+            setHtmlinPreviewPane(getMarkdownText());
+	    plainViewButton.hide();
+            self.showEditor(false);
             self.showTitle(true);
-            self.showEditor(true);
-            titleContainer.val('');
-			$("#tags_tagsinput").show();
-			saveAndPreview.show();
-        };
+            showThis([rawHtmlExpression,previewContainerExpression]);
+            self.saveAndNotify();
+	    $("#tags_tagsinput").show();
+	    $("#tags_tagsinput").on('click',function(event){event.stopPropagation()});
+        }
 
-        self.showPreview = function () {				
-			
-            if (validateInputOnFousOut()) {
-				
-				saveAndPreview.hide();
-                setHtmlinPreviewPane(getMarkdownText());
-		 plainViewButton.hide();
-                self.showEditor(false);
-                self.showTitle(true);
-                showThis([rawHtmlExpression,previewContainerExpression]);
-                self.saveAndNotify();
-				$("#tags_tagsinput").show();
-				$("#tags_tagsinput").on('click',function(event){event.stopPropagation()});
-            }
+    };
 
-        };
+    self.hidePreview = function () {
+	
+        previewContainerView.hide();
+        self.showEditor(true);
+        editArea.trigger('autosize');
+        editArea.focus();
+	$("#tags_tagsinput").hide();
+	saveAndPreview.show();
+    };
 
-        self.hidePreview = function () {
-			
-            previewContainerView.hide();
-            self.showEditor(true);
-            editArea.trigger('autosize');
-            editArea.focus();
-			$("#tags_tagsinput").hide();
-			saveAndPreview.show();
-        };
+    self.editDraft = function (draft) {
 
-        self.editDraft = function (draft) {
+        var title = draft.title;
+        var item = getDraftFromKey(title);
+        var parsed = JSON.parse(item);
+        draftsView.hide();
+        editArea.val(parsed.text).trigger('autosize');
+        titleContainer.val(title);
+        self.currentKey = title;
+        wordCountLabel.text(parsed.wordCount);
+        self.showEditor(true);
+        self.showTitle(true);
+	$("#tags").importTags(parsed.tags);
+	$("#tags_tagsinput").hide();
+	saveAndPreview.show();
+    };
+    
+    
+    self.rawHtml = function(data,event){
 
-            var title = draft.title;
-            var item = getDraftFromKey(title);
-            var parsed = JSON.parse(item);
-            draftsView.hide();
-            editArea.val(parsed.text).trigger('autosize');
-            titleContainer.val(title);
-            self.currentKey = title;
-            wordCountLabel.text(parsed.wordCount);
-            self.showEditor(true);
-            self.showTitle(true);
-			$("#tags").importTags(parsed.tags);
-			$("#tags_tagsinput").hide();
-			saveAndPreview.show();
-        };
-        
-        
-        self.rawHtml = function(data,event){
-
-            setRawHtml();
+        setRawHtml();
         event.stopPropagation();
         self.raw(false);
 
-        };
+    };
 
-        self.plain = function(data,event){
+    self.plain = function(data,event){
 
         setPlain();
         event.stopPropagation();
         self.raw(true);
 
-        };
-        
-        
-        self.editingSecret = function(data,event){
-            
-            event.stopPropagation();
-        };
-        
-        self.hasProvidedSecret = ko.computed(function(){            
-        return self.secret()?true:false;
-        });
-
-        
-        self.publishArticle = function(data,event){
-            event.stopPropagation();
-            publishArticle();
-        };
-        
-        self.updateArticle = function(data,event){
-            event.stopPropagation();
-            updatePost();
-        };
-        
-        self.saveAndNotify = function(){
-		if(!editArea.val() || !titleContainer.val()) return;			
-             saveCurrentDraft(self.currentKey);
-            saveStatusNotification.fadeIn().show().delay(1000).fadeOut();
-        };
-        
-        self.editTitle = function(){
-            self.currentKey = titleContainer.val();
-            previewContainerView.hide();
-            self.showEditor(true);
-			$("#tags_tagsinput").show();
-        }
     };
+    
+    
+    self.editingSecret = function(data,event){
+        
+        event.stopPropagation();
+    };
+    
+    
 
-    var initializeDrafts = new viewModel();
-    ko.applyBindings(initializeDrafts);
+    
+    self.publishArticle = function(data,event){
+        event.stopPropagation();
+        publishArticle();
+    };
+    
+    self.updateArticle = function(data,event){
+        event.stopPropagation();
+        updatePost();
+    };
+    
+    self.saveAndNotify = function(){
+	if(!editArea.val() || !titleContainer.val()) return;			
+        saveCurrentDraft(self.currentKey);
+        saveStatusNotification.fadeIn().show().delay(1000).fadeOut();
+    };
+    
+    self.editTitle = function(){
+        self.currentKey = titleContainer.val();
+        previewContainerView.hide();
+        self.showEditor(true);
+	$("#tags_tagsinput").show();
+    };
+};
+
+var initializeDrafts = new viewModel();
+ko.applyBindings(initializeDrafts);
 
 function prepareInitialWorkSpace() {
 
-        var editArea = $("#editArea");
-        editArea.autosize();
-        return editArea;
+    var editArea = $("#editArea");
+    editArea.autosize();
+    return editArea;
 
-    }
+}
 
-    function hideThis(elements) {
+function hideThis(elements) {
 
-        $(elements.join(',')).hide();
-    }
+    $(elements.join(',')).hide();
+}
 
-    function showThis(elements) {
-        
-       $(elements.join(',')).show();
-    }
+function showThis(elements) {
+    
+    $(elements.join(',')).show();
+}
 
-    function getMarkdownText() {
-        return editArea.val();
-    }
+function getMarkdownText() {
+    return editArea.val();
+}
 
-    function getWordCount(text) {
-	var strippedText = $('<span>'+text+'</span>').text();
-        return strippedText.split(/\s+\b/).length;
-    }
+function getWordCount(text) {
+    var strippedText = $('<span>'+text+'</span>').text();
+    return strippedText.split(/\s+\b/).length;
+}
 
-    function setHtmlinPreviewPane(markdownText) {
-        wordCountLabel.text('words: ' + getWordCount(markdownText));
-        var previewHtml = marked(markdownText);
-        previewPaneView.html(previewHtml);
-    }
+function setHtmlinPreviewPane(markdownText) {
+    wordCountLabel.text('words: ' + getWordCount(markdownText));
+    var previewHtml = marked(markdownText);
+    previewPaneView.html(previewHtml);
+}
 
-    function setRawHtml() {
+function setRawHtml() {
 
-        previewPaneView.text(previewPaneView.html());
-    }
+    previewPaneView.text(previewPaneView.html());
+}
 
-    function setPlain() {
-        previewPaneView.html(previewPaneView.text());
-    }
-
-
-    function getWordCountFromLabel(text) {
-
-        return text.match(/\d+/)[0];
-    }
+function setPlain() {
+    previewPaneView.html(previewPaneView.text());
+}
 
 
-    function validateInputOnFousOut() {
+function getWordCountFromLabel(text) {
 
-        var isTitleEmpty = titleContainer.val().trim() === '';
-        var isDraftEmpty = editAreaView.val() === '';
-        var hasTitileAndDraft = !isTitleEmpty && !isDraftEmpty;
-        return hasTitileAndDraft;
+    return text.match(/\d+/)[0];
+}
 
-    }
+
+function validateInputOnFousOut() {
+
+    var isTitleEmpty = titleContainer.val().trim() === '';
+    var isDraftEmpty = editAreaView.val() === '';
+    var hasTitileAndDraft = !isTitleEmpty && !isDraftEmpty;
+    return hasTitileAndDraft;
+
+}
 
 
 
@@ -1950,23 +1947,44 @@ function getItemsToPost(){
         wordCount :getWordCountFromLabel(wordCountLabel.text()),
         title : titleContainer.val(),
         secret :secret.val(),
-		tags : tags.val().split(',')
+	tags : tags.val().split(','),
+	postedBy: "Akshat Jiwan Sharma",
+	"postedOn": Date.now()
         
     };    
-      
+    
     return item;
 }
 
 function publishArticle(){
+    $.ajax({
+	url: "http://localhost:5984/test",
+	type: "POST",
+	contentType: "application/json", // send as JSON
+	data:JSON.stringify(getItemsToPost()),
+
+	complete: function() {
+	    //called when complete
+	},
+
+	success: function() {
+            removeDraft(titleContainer.val());
+            window.location.href = "http://localhost:5984/staticshin";
+	},
+
+	error: function(data) {
+	    alert(data);
+	}
+    });
     
-    $.post('/addpost',getItemsToPost(),function(data){
-        removeDraft(titleContainer.val());
-         window.location.href = "/"+data.id;
-    }).fail(function(data){
-		
-			if(data.status === 403)alert('un-authorized');
-           if(data.status===500) alert('internal server error');
-	});
+    // $.post('',getItemsToPost(),function(data){
+    //     removeDraft(titleContainer.val());
+    //     window.location.href = "http://localhost:5984/staticshin";
+    // }).fail(function(data){
+    
+    // 	if(data.status === 403)alert('un-authorized');
+    //     if(data.status===500) alert('internal server error');
+    // });
 }
 
 function updatePost(){
@@ -1979,16 +1997,16 @@ function updatePost(){
         removeDraft(items.title);
         window.location.href = "/"+data.id;
     }).fail(function(data){
-		
-			if(data.status === 403)alert('un-authorized');
-           if(data.status===500) alert('internal server error');
-	});
+	
+	if(data.status === 403)alert('un-authorized');
+        if(data.status===500) alert('internal server error');
+    });
 }
 
 
 var editArea = prepareInitialWorkSpace();
 
-    
+
 function loadSavedDrafts() {
         return Object.keys(localStorage);
     }
