@@ -16,7 +16,7 @@ exports.getPostToDelete = function(req,res){
 };
 
 exports.deletePost = function(req,res){
-    var reqPath =req.path; 
+    var reqPath = url.parse(req.body.url).pathname; 
     var id = req.body.id;
     var secret = req.body.secret;
     var url = constants.queries.postType()+id;
@@ -26,6 +26,7 @@ exports.deletePost = function(req,res){
     request.del(url,function(error,response,body){
         
         if(error) return res.send(500);
+	console.log(reqPath);
 	//issacs rimraf module
 	rimraf("/home/akshat/Repo/staticshin/"+reqPath,function(err){
 	    console.log(err);
