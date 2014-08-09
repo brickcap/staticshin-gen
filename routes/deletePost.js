@@ -2,6 +2,7 @@ var constants = require('../constants');
 var request = require('request');
 var helpers = require('../helpers');
 var rimraf = require("rimraf");
+var urlUtil = require("url");
 
 exports.getPostToDelete = function(req,res){
     
@@ -16,7 +17,8 @@ exports.getPostToDelete = function(req,res){
 };
 
 exports.deletePost = function(req,res){
-    var reqPath = url.parse(req.body.url).pathname; 
+    var pathName = urlUtil.parse(req.body.url).pathname ;
+    var reqPath = pathName.substring(0,pathName.indexOf("/d")); 
     var id = req.body.id;
     var secret = req.body.secret;
     var url = constants.queries.postType()+id;
@@ -28,7 +30,7 @@ exports.deletePost = function(req,res){
         if(error) return res.send(500);
 	console.log(reqPath);
 	//issacs rimraf module
-	rimraf("/home/akshat/Repo/staticshin/"+reqPath,function(err){
+	rimraf("/home/akshat/Repo/staticshin"+reqPath,function(err){
 	    console.log(err);
 	});
         return res.send(200);
