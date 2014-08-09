@@ -43,6 +43,14 @@ exports.getRecentPosts = function(req,res,api){
 	var header = fs.readFileSync('views/header.html');
 	dataToRender.header = header;
 	var render =mustache.render(temp.toString(),dataToRender);
+	if(dataToRender.hasOwnProperty("tags")){
+	    dataToRender. tags.forEach(function(element,index,arr){
+		if(whitelist.indexOf(element)!=-1){
+		    fs.outputFileSync("/home/akshat/Repo/staticshin/"+element.toString()+"/index.html",render);
+
+		}
+	    });
+	}
 	fs.outputFileSync("/home/akshat/Repo/staticshin/index.html",render);
         return res.redirect("/blog/archives");
     });
