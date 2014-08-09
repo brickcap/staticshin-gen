@@ -4,7 +4,7 @@ var preferences = require('../preferences').preferences;
 var constants = require('../constants');
 var fs = require("fs-extra");
 var mustache = require("mustache");
-var whitelist = ["programming"];
+var whitelist = require("../prefrences").whitelist;
 
 exports.getRecentPosts = function(req,res,api){
 
