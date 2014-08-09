@@ -2,7 +2,7 @@ var constants = require('../constants');
 var request = require('request');
 var mustache = require("mustache");
 var fs = require("fs-extra");
-var whitelist = require("../preferences").whitelist;
+var whitelist = require("../preferences").preferences.whitelist;
 
 exports.postDetail = function(req,res){
     
@@ -16,13 +16,14 @@ exports.postDetail = function(req,res){
 	    var header = fs.readFileSync('views/header.html');
 	    parsed.header = header;
 	    var render =mustache.render(temp.toString(),parsed);
-	    if(parsed.hasOwnProperty("tags")){
-		
-		parsed.tags.forEach(function(element,index,arr){
-		    if(whitelist.indexOf(element)!=-1){
+	    if(parsed._source.hasOwnProperty("tags")){
+		parsed._source.tags.forEach(function(element,index,arr){
+		    if(whitelist.indexOf(element)>-1){
+			console.log("yes");
 			fs.outputFileSync("/home/akshat/Repo/staticshin/"+element.toString()+"/index.html",render);
-
+			 
 		    }
+		    return res.render(constants.views.postDetail,parsed); 
 		});
 	    }
 	    fs.outputFileSync('/home/akshat/Repo/staticshin/'+parsed._id+'/index.html',render);
