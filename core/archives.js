@@ -21,7 +21,7 @@ exports.getArchives = function(req,res,api){
 	//now build archives for tags
 	var uniqueTags = data.archiveTags;
 	uniqueTags.forEach(function(element,index,arr){
-	   
+	    
 	    if(!whitelist.hasOwnProperty(element))return;
 	    var tagRenderData = _.filter(data.archives,function(data){
 		if(data.fields.hasOwnProperty("tags")) {
@@ -29,12 +29,9 @@ exports.getArchives = function(req,res,api){
 		}
 		return false;
 	    });
-	   console.log(tagRenderData);
-	    tagRenderData.header = header;
-	  
-	    var tagTemp = whitelist[element]+element+"_index.html";
-	    var tagRender =mustache.render(tagTemp.toString(),tagRenderData);
-	   fs.outputFileSync(whitelist[element]+"index.html",tagRenderData);
+	    var tagTemp = fs.readFileSync(whitelist[element]+element+"_index.html");
+	    var tagRender = mustache.render(tagTemp.toString(),{archives:tagRenderData,header: header});
+	    fs.outputFileSync(whitelist[element]+"index.html",tagRender);
 	    
 	});
 	return res.render(constants.views.archives,data);
