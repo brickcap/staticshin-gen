@@ -27,46 +27,46 @@ exports.getArchives = function(req,res,api){
 	    });
 	    console.log(tagRender);
 	    
-});
-    return res.render(constants.views.archives,data);
-});
+	});
+	return res.render(constants.views.archives,data);
+    });
 
 };
 
 function buildArchivesQuery(){
 
-	var query = {
-		"fields": ["postedBy","postedOn","title","wordCount","tags"],
-		"size" : 1000000,
-		"sort" :{ "postedOn" : {"order" : "asc"}},
-		"query" : {
+    var query = {
+	"fields": ["postedBy","postedOn","title","wordCount","tags"],
+	"size" : 1000000,
+	"sort" :{ "postedOn" : {"order" : "asc"}},
+	"query" : {
 
-		"match_all" :{}
+	    "match_all" :{}
 	}
-		
-};
+	
+    };
 
-	var url = constants.queries.search();
-	var headers = helpers.setHeaders(url,query);
-	return headers;
+    var url = constants.queries.search();
+    var headers = helpers.setHeaders(url,query);
+    return headers;
 }
 
 function buildResponse(data){
-	
-	var uniqueTags = [];
+    
+    var uniqueTags = [];
 
-	data.forEach(function(item){
+    data.forEach(function(item){
 
-		item.fields.postedOn = new Date(item.fields.postedOn).toDateString(); 
-		
-		if(!item.fields.tags){return item;}
-		
-		var intersection = item.fields.tags.filter(function(tag){return uniqueTags.indexOf(tag)<0;});
+	item.fields.postedOn = new Date(item.fields.postedOn).toDateString(); 
 	
-		uniqueTags.push.apply(uniqueTags,intersection);
-		return item;
-	});
+	if(!item.fields.tags){return item;}
+	
+	var intersection = item.fields.tags.filter(function(tag){return uniqueTags.indexOf(tag)<0;});
+	
+	uniqueTags.push.apply(uniqueTags,intersection);
+	return item;
+    });
 
-	
-	return {archives:data,archiveTags: uniqueTags};
+    
+    return {archives:data,archiveTags: uniqueTags};
 }
