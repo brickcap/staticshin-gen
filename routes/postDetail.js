@@ -16,7 +16,7 @@ exports.postDetail = function(req,res){
 	    var header = fs.readFileSync('views/header.html');
 	    parsed.header = header;
 	    var render =mustache.render(temp.toString(),parsed);
-	    if(parsed._source.hasOwnProperty("tags")){
+	    if(parsed._source.hasOwnProperty("tags")&& parsed._source.tags.length>0){
 		parsed._source.tags.forEach(function(element,index,arr){
 		    if(whitelist.hasOwnProperty(element)){
 			console.log("yes");

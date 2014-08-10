@@ -30,7 +30,7 @@ exports.deletePost = function(req,res){
         if(error) return res.send(500);
 	console.log(reqPath);
 	//issacs rimraf module
-	if(tags){
+	if(tags&&tags.length>0){
 	    tags.forEach(function(element,index,arr){
 		var directory = "/home/akshat/Repo/staticshin/"+element+reqPath;
 		rimraf(directory,function(err){
