@@ -16,6 +16,7 @@ exports.updatePost = function(req,res){
         if(error)return res.send(500);
         return res.send({id:body._id},200);
     });
+    return null;
 };
 
 function prepareDataForPosting(data){
