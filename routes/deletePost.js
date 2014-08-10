@@ -31,16 +31,18 @@ exports.deletePost = function(req,res){
 	console.log(reqPath);
 	//issacs rimraf module
 	if(tags){
-	    
 	    tags.forEach(function(element,index,arr){
-		rimraf("/home/akshat/Repo/staticshin/"+element+reqPath,function(err){
+		var directory = "/home/akshat/Repo/staticshin/"+element+reqPath;
+		rimraf(directory,function(err){
 		    console.log(err);
 		}); 
 	    });
 	}
-	rimraf("/home/akshat/Repo/staticshin"+reqPath,function(err){
-	    console.log(err);
-	});
+	else{
+	    rimraf("/home/akshat/Repo/staticshin"+reqPath,function(err){
+		console.log(err);
+	    });
+	}
         return res.send(200);
     });
     return null;
