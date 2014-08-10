@@ -44,5 +44,6 @@ function buildResponse(postDetail){
     data.title = postDetail._source.title;
     data.wordCount = postDetail._source.wordCount;
     data.postedBy = postDetail._source.postedBy;
+    data.tags = postDetail._source.tags;
     return data;    
 }
