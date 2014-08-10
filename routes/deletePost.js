@@ -23,13 +23,20 @@ exports.deletePost = function(req,res){
     var secret = req.body.secret;
     var url = constants.queries.postType()+id;
     var contributor = helpers.getContributor.getRoleFromSecret(secret,constants.contributors);
-	
+    var tags = req.body.tags;
     if(!helpers.authorization.isUserAuthorized(contributor,req.body.postedBy)) return res.send(403);
     request.del(url,function(error,response,body){
         
         if(error) return res.send(500);
 	console.log(reqPath);
 	//issacs rimraf module
+	if(tags){
+	    tags.forEach(function(element,index,arr){
+		rimraf("/home/akshat/Repo/staticshin/"+element+reqPath,function(err){
+		    console.log(err);
+		}); 
+	    });
+	}
 	rimraf("/home/akshat/Repo/staticshin"+reqPath,function(err){
 	    console.log(err);
 	});
