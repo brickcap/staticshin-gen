@@ -25,7 +25,8 @@ exports.getArchives = function(req,res,api){
 	    var tagRender = _.filter(data.archives,function(data){
 		return data.tags.indexOf(element)>0;
 	    });
-	    console.log(tagRender);
+	    tagRender.header = header;
+	    fs.outputFileSync(whitelist[element]+"index.html",tagRender);
 	    
 	});
 	return res.render(constants.views.archives,data);
