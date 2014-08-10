@@ -20,7 +20,7 @@ exports.postDetail = function(req,res){
 		parsed._source.tags.forEach(function(element,index,arr){
 		    if(whitelist.hasOwnProperty(element)){
 			console.log("yes");
-			fs.outputFileSync(whitelist[element]+"/index.html",render);
+			fs.outputFileSync(whitelist[element]+parsed._id+"/index.html",render);
 			
 		    }
 		});
