@@ -18,22 +18,26 @@ exports.postDetail = function(req,res){
 	    var render =mustache.render(temp.toString(),parsed);
 	    if(parsed._source.hasOwnProperty("tags")){
 		parsed._source.tags.forEach(function(element,index,arr){
-		    if(whitelist.indexOf(element)>-1){
+		    if(whitelist.hasOwnProperty(element)){
 			console.log("yes");
-			fs.outputFileSync("/home/akshat/Repo/staticshin/"+element.toString()+"/index.html",render);
-			 
+			fs.outputFileSync(whitelist[element]+"/index.html",render);
+			
 		    }
-		    return res.render(constants.views.postDetail,parsed); 
 		});
+		return res.render(constants.views.postDetail,parsed); 
+
 	    }
-	    fs.outputFileSync('/home/akshat/Repo/staticshin/'+parsed._id+'/index.html',render);
-	    
-	    return res.render(constants.views.postDetail,parsed);
+	    else{
+
+		fs.outputFileSync('/home/akshat/Repo/staticshin/'+parsed._id+'/index.html',render);		
+		return res.render(constants.views.postDetail,parsed);
+	    }
         }
         catch(e){
             
             return res.send(404);
         }
+	return null;
     });
     
 };
