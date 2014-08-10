@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8"/>
     <title>{{_source.title}}</title>
-    <link href="../style.css" rel="stylesheet"/>
+    {{#urlTag}}<link href="../../style.css" rel="stylesheet"/>{{/urlTag}}
+
+    {{^urlTag}}<link href="../style.css" rel="stylesheet"/>{{/urlTag}}
   </head>
   <body>
     {{{header}}}    

@@ -11,17 +11,17 @@
     <ol class="post">
       {{#archives}}
       <li><p>
-{{#urlTag}}<a href="/{{urlTag}}/{{_id}}">{{fields.title}}</a>{{/urlTag}}
-{{^urlTag}}<a href="/{{_id}}">{{fields.title}}</a>{{/urlTag}} 
-<small> {{fields.postedOn}}, {{fields.wordCount}} words</small></p>
+	  {{#urlTag}}<a href="/{{urlTag}}/{{_id}}">{{fields.title}}</a>{{/urlTag}}
+	  {{^urlTag}}<a href="/{{_id}}">{{fields.title}}</a>{{/urlTag}} 
+	  <small> {{fields.postedOn}}, {{fields.wordCount}} words</small></p>
         
       </li>
       {{/archives}}
     </ol>
     <hr/>
-<footer>
-    <h1>Thank you for reading</h1>
-</footer>
+    <footer>
+      <h1>Thank you for reading</h1>
+    </footer>
     <script src="./staticshin.js"> </script>
   </body>
 </html>

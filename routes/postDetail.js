@@ -19,7 +19,8 @@ exports.postDetail = function(req,res){
 	    if(parsed._source.hasOwnProperty("tags")&& parsed._source.tags.length>0){
 		parsed._source.tags.forEach(function(element,index,arr){
 		    if(whitelist.hasOwnProperty(element)){
-			console.log("yes");
+			parsed.urlTag = element;
+			var render =mustache.render(temp.toString(),parsed);	   
 			fs.outputFileSync(whitelist[element]+parsed._id+"/index.html",render);
 			
 		    }
@@ -34,7 +35,7 @@ exports.postDetail = function(req,res){
 	    }
         }
         catch(e){
-            
+            console.log(e);
             return res.send(404);
         }
 	return null;
