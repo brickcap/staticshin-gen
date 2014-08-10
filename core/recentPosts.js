@@ -52,7 +52,12 @@ function getRecentPostsQueryData(pageNo,paginationSize){
 	
     var queryData = {
       "sort" :{ "postedOn" : {"order" : "desc"}},
-	   "fields" : preferences.index.pageFields	
+	   "fields" : preferences.index.pageFields,
+	"filter" : {
+        "script" : {
+            "script" : "doc['tags'].values.contains('programming')==false"
+        }
+}
     };
 	
     return helpers.pagination.buildPaginationQuery(pageNo,paginationSize,queryData);
