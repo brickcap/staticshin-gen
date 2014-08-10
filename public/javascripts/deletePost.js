@@ -31,7 +31,7 @@ var deleteViewModel = function(){
         post.postedBy = data.by;
         post.secret = self.secret();
         post.url = document.URL;
-	post.tags = data.tags;
+	post.tags = data.tags.split(",");
 	return post;
     };
     
