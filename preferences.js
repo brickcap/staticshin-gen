@@ -42,6 +42,6 @@ exports.preferences = {
             'link':       'http://www.staticshin.com/'
 	}	
     },
-    whitelist:["programming"]    
+    whitelist:{"programming":"/home/akshat/Repo/staticshin/programming/"}    
 };
 
