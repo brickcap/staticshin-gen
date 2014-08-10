@@ -21,15 +21,19 @@ exports.getArchives = function(req,res,api){
 	//now build archives for tags
 	var uniqueTags = data.archiveTags;
 	uniqueTags.forEach(function(element,index,arr){
+	   
 	    if(!whitelist.hasOwnProperty(element))return;
 	    var tagRenderData = _.filter(data.archives,function(data){
-		if(!data.tags) return false;
-		return data.tags.indexOf(element)>0;
+		console.log(data);
+		if(!data.fields.hasOwnProperty("tags")) return false;
+		return data.fields.tags.indexOf(element)>0;
 	    });
+	    console.log(tagRenderData); 
 	    tagRenderData.header = header;
+	   
 	    var tagTemp = whitelist[element]+element+"_index.html";
 	    var tagRender =mustache.render(tagTemp,tagRenderData);
-	   fs.outputFileSync(whitelist[element]+"index.html",tagRender);
+	   fs.outputFileSync(whitelist[element]+"index.html",tagRenderData);
 	    
 	});
 	return res.render(constants.views.archives,data);
