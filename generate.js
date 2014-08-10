@@ -2,10 +2,12 @@ var request = require('request');
 var consolidate = require('consolidate');
 var mustache = require('mustache');
 var fs = require('fs-extra');
+var whitelist = require("../preferences").preferences.whitelist;
 
 var renderString = fs.readFileSync("/home/akshat/Repo/staticshin/about.html");
 var header = fs.readFileSync("/home/akshat/Repo/staticshin-gen/views/header.html");
 var rendered = mustache.render(renderString.toString(),{head:header});
+
 fs.outputFileSync('/home/akshat/Repo/staticshin/about.html',rendered);
 
 request("http://localhost:9200/blog/_search?size=79",function(error,response,body){
