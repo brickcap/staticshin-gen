@@ -22,11 +22,14 @@ exports.getArchives = function(req,res,api){
 	var uniqueTags = data.archiveTags;
 	uniqueTags.forEach(function(element,index,arr){
 	    if(!whitelist.hasOwnProperty(element))return;
-	    var tagRender = _.filter(data.archives,function(data){
+	    var tagRenderData = _.filter(data.archives,function(data){
+		if(!data.tags) return false;
 		return data.tags.indexOf(element)>0;
 	    });
-	    tagRender.header = header;
-	    fs.outputFileSync(whitelist[element]+"index.html",tagRender);
+	    tagRenderData.header = header;
+	    var tagTemp = whitelist[element]+element+"_index.html";
+	    var tagRender =mustache.render(tagTemp,tagRenderData);
+	   fs.outputFileSync(whitelist[element]+"index.html",tagRender);
 	    
 	});
 	return res.render(constants.views.archives,data);
