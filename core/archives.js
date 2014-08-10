@@ -30,7 +30,7 @@ exports.getArchives = function(req,res,api){
 		return false;
 	    });
 	    var tagTemp = fs.readFileSync(whitelist[element]+element+"_index.html");
-	    var tagRender = mustache.render(tagTemp.toString(),{archives:tagRenderData,header: header});
+	    var tagRender = mustache.render(tagTemp.toString(),{archives:tagRenderData,header: header,tag:element});
 	    fs.outputFileSync(whitelist[element]+"index.html",tagRender);
 	    
 	});
