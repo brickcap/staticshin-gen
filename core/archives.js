@@ -67,10 +67,20 @@ function buildResponse(data){
 	item.fields.postedOn = new Date(item.fields.postedOn).toDateString(); 
 	
 	if(!item.fields.tags){return item;}
-	
-	var intersection = item.fields.tags.filter(function(tag){return uniqueTags.indexOf(tag)<0;});
+	var intersection = item.fields.tags.filter(
+	    function(tag){
+		
+		return uniqueTags.indexOf(tag)<0;
+	    });
 	
 	uniqueTags.push.apply(uniqueTags,intersection);
+	item.fields.tags.forEach(function(tag,index,arr){
+	    if(whitelist.hasOwnProperty(tag)){
+		console.log("found");
+		item.urlTag=tag;
+		console.log(item);
+	    }
+	});
 	return item;
     });
 
