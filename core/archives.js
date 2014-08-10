@@ -29,11 +29,13 @@ exports.getArchives = function(req,res,api){
 		}
 		return false;
 	    });
+	    if(tagRenderData.lenght===0)fs.outputFileSync(whitelist[element]+"index.html");
 	    var tagTemp = fs.readFileSync(whitelist[element]+element+"_index.html");
 	    var tagRender = mustache.render(tagTemp.toString(),{archives:tagRenderData,header: header});
 	    fs.outputFileSync(whitelist[element]+"index.html",tagRender);
 	    
 	});
+	
 	return res.render(constants.views.archives,data);
     });
 
