@@ -24,15 +24,16 @@ exports.getArchives = function(req,res,api){
 	   
 	    if(!whitelist.hasOwnProperty(element))return;
 	    var tagRenderData = _.filter(data.archives,function(data){
-		console.log(data);
-		if(!data.fields.hasOwnProperty("tags")) return false;
-		return data.fields.tags.indexOf(element)>0;
+		if(data.fields.hasOwnProperty("tags")) {
+		    return data.fields.tags.indexOf(element)>-1;
+		}
+		return false;
 	    });
-	    console.log(tagRenderData); 
+	   console.log(tagRenderData);
 	    tagRenderData.header = header;
-	   
+	  
 	    var tagTemp = whitelist[element]+element+"_index.html";
-	    var tagRender =mustache.render(tagTemp,tagRenderData);
+	    var tagRender =mustache.render(tagTemp.toString(),tagRenderData);
 	   fs.outputFileSync(whitelist[element]+"index.html",tagRenderData);
 	    
 	});
