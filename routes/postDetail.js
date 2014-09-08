@@ -19,8 +19,10 @@ exports.postDetail = function(req,res){
 	    if(parsed._source.hasOwnProperty("tags")&& parsed._source.tags.length>0){
 		parsed._source.tags.forEach(function(element,index,arr){
 		    if(whitelist.hasOwnProperty(element)){
+			var temp_special_path = whitelist[element]+'/post_template.html';
+			var temp_special = fs.existsSync(temp_special_path)?temp_special_path:temp;
 			parsed.urlTag = element;
-			var render =mustache.render(temp.toString(),parsed);	   
+			var render =mustache.render(temp_special.toString(),parsed);	   
 			fs.outputFileSync(whitelist[element]+parsed._id+"/index.html",render);
 			
 		    }

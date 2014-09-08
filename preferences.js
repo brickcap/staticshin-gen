@@ -43,7 +43,8 @@ exports.preferences = {
 	}	
     },
     whitelist:{
-	"programming":"/home/akshat/Repo/staticshin/programming/"
+	"programming":"/home/akshat/Repo/staticshin/programming/",
+	"wrinq":"/home/akshat/Repo/wrinqPreview/wrinq-front-end/blog"
     }    
 };
 
