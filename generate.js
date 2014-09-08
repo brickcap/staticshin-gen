@@ -24,18 +24,23 @@ request("http://localhost:9200/blog/_search?size=79",function(error,response,bod
 	//console.log(hit._source);
 	var header = fs.readFileSync('views/header.html');
 	hit.header = header;
-	var render =mustache.render(temp.toString(),hit);
+
 	if(hit._source.tags){
 	    var tags = hit._source.tags;
 	    tags.forEach(function(tag){
 		if(whitelist.hasOwnProperty(tag)){
 		    console.log("tag rendering at: " +whitelist[tag]+id+'/index.html');
-		    
+		    hit.urlTag = true;
+		    var render =mustache.render(temp.toString(),hit);		    
 		    fs.outputFileSync(whitelist[tag]+id+'/index.html',render);
 		}
 	    });
 	};
-	fs.outputFileSync('/home/akshat/Repo/staticshin/'+id+'/index.html',render);
+	if(!hit._source.tags){
+	    	var render =mustache.render(temp.toString(),hit);
+
+	    fs.outputFileSync('/home/akshat/Repo/staticshin/'+id+'/index.html',render);
+	}
 	
     }
 });
