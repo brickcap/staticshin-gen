@@ -8,6 +8,8 @@ var renderString = fs.readFileSync("/home/akshat/Repo/staticshin/about.html");
 var header = fs.readFileSync("/home/akshat/Repo/staticshin-gen/views/header.html");
 var rendered = mustache.render(renderString.toString(),{head:header});
 
+var argument = "";
+var url = "http://localhost:9200/blog/_search?pretty=true&q=tags:"+argument;
 fs.outputFileSync('/home/akshat/Repo/staticshin/about.html',rendered);
 
 request("http://localhost:9200/blog/_search?size=79",function(error,response,body){
