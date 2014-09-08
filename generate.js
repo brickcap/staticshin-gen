@@ -2,7 +2,7 @@ var request = require('request');
 var consolidate = require('consolidate');
 var mustache = require('mustache');
 var fs = require('fs-extra');
-var whitelist = require("../preferences").preferences.whitelist;
+var whitelist = require("./preferences").preferences.whitelist;
 
 var renderString = fs.readFileSync("/home/akshat/Repo/staticshin/about.html");
 var header = fs.readFileSync("/home/akshat/Repo/staticshin-gen/views/header.html");
@@ -25,6 +25,16 @@ request("http://localhost:9200/blog/_search?size=79",function(error,response,bod
 	var header = fs.readFileSync('views/header.html');
 	hit.header = header;
 	var render =mustache.render(temp.toString(),hit);
+	if(hit._source.tags){
+	    var tags = hit._source.tags;
+	    tags.forEach(function(tag){
+		if(whitelist.hasOwnProperty(tag)){
+		    console.log("tag rendering at: " +whitelist[tag]+id+'/index.html');
+		    
+		    fs.outputFileSync(whitelist[tag]+id+'/index.html',render);
+		}
+	    });
+	};
 	fs.outputFileSync('/home/akshat/Repo/staticshin/'+id+'/index.html',render);
 	
     }
