@@ -1,5 +1,9 @@
 function(newDoc, oldDoc, userCtx, secObj) {
-    if(newDoc.title===oldDoc.title){
-	throw({duplicate: 'The document is already present'});
+    if(!oldDoc)return true;
+    if(oldDoc && newDoc.title===oldDoc.title){
+	throw({forbidden: 'The document is already present'});
+    }
+    else{
+	return true;
     }
 }
