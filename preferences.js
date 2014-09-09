@@ -44,7 +44,7 @@ exports.preferences = {
     },
     whitelist:{
 	"programming":"/home/akshat/Repo/staticshin/programming/",
-	"wrinq":"/home/akshat/Repo/wrinqPreview/wrinq-front-end/blog"
+	"wrinq":"/home/akshat/Repo/wrinqPreview/wrinq-front-end/blog/"
     }    
 };
 
