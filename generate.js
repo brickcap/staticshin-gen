@@ -23,24 +23,31 @@ request(url,function(error,response,body){
     for(i;i<hits.length;i++){
 	var hit = hits[i];
 	var id = hit._id;
-	
+	var untaggedCriteria = 
 	hit._source.postedOn = new Date(hit._source.postedOn).toDateString();	
 	var temp =  fs.readFileSync('views/post_template.html');
 	//console.log(hit._source);
 	var header = fs.readFileSync('views/header.html');
 	hit.header = header;
 	var tags = hit._source.tags;
+	//First handle the rendering of tagged files
 	if(tags&&tags.length>0){
 	     tags.forEach(function(tag){
-		if(whitelist.hasOwnProperty(tag)){
-		    console.log("tag rendering at: " +whitelist[tag]+id+'/index.html');
-		    hit.urlTag = true;
-		    var render =mustache.render(temp.toString(),hit);		    
-		    fs.outputFileSync(whitelist[tag]+id+'/index.html',render);
-		}
+		 var render =mustache.render(temp.toString(),hit);		    
+		 if(whitelist.hasOwnProperty(tag)){
+		     console.log("tag rendering at: " +whitelist[tag]+id+'/index.html');
+		     hit.urlTag = true;
+		     fs.outputFileSync(whitelist[tag]+id+'/index.html',render);
+		 }
+		 if(!whitelist.hasOwnProperty(tag)){
+		     fs.outputFileSync('/home/akshat/Repo/staticshin/'+id+'/index.html',render);
+
+		 }
 	    });
 	}
-	if(tags&&tags.length===0){
+	
+	if(tags&&tags.length===0&&!argument){
+	    console.log("renreding untagged post "+i.toString());
 	    var render =mustache.render(temp.toString(),hit);
 	    fs.outputFileSync('/home/akshat/Repo/staticshin/'+id+'/index.html',render);
 	}
