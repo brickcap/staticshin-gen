@@ -3,6 +3,7 @@ var request = require('request');
 var helpers = require('../helpers');
 var rimraf = require("rimraf");
 var urlUtil = require("url");
+var whitelist = require("../preferences").preferences.whitelist;
 
 exports.getPostToDelete = function(req,res){
     
@@ -32,7 +33,7 @@ exports.deletePost = function(req,res){
 	//issacs rimraf module
 	if(tags&&tags.length>0){
 	    tags.forEach(function(element,index,arr){
-		var directory = "/home/akshat/Repo/staticshin/"+element+reqPath;
+		var directory = whitelist[element]+reqPath;
 		rimraf(directory,function(err){
 		    console.log(err);
 		}); 
