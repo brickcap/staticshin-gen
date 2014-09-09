@@ -29,10 +29,9 @@ request(url,function(error,response,body){
 	//console.log(hit._source);
 	var header = fs.readFileSync('views/header.html');
 	hit.header = header;
-
-	if(hit._source.tags){
-	    var tags = hit._source.tags;
-	    tags.forEach(function(tag){
+	var tags = hit._source.tags;
+	if(tags&&tags.length>0){
+	     tags.forEach(function(tag){
 		if(whitelist.hasOwnProperty(tag)){
 		    console.log("tag rendering at: " +whitelist[tag]+id+'/index.html');
 		    hit.urlTag = true;
@@ -40,10 +39,9 @@ request(url,function(error,response,body){
 		    fs.outputFileSync(whitelist[tag]+id+'/index.html',render);
 		}
 	    });
-	};
-	if(!hit._source.tags){
+	}
+	if(tags&&tags.length===0){
 	    var render =mustache.render(temp.toString(),hit);
-
 	    fs.outputFileSync('/home/akshat/Repo/staticshin/'+id+'/index.html',render);
 	}
 	
