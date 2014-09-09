@@ -45,7 +45,7 @@ request(url,function(error,response,body){
 		 }
 	    });
 	}
-	
+	// okay now no more tags are left. Render away
 	if(tags&&tags.length===0&&!argument){
 	    console.log("renreding untagged post "+i.toString());
 	    var render =mustache.render(temp.toString(),hit);
