@@ -10,14 +10,14 @@
     {{{header}}}    
     
     <ol class="post">
-      {{#archives}}
+      {{#render_data}}
       <li><p>
 	  {{#urlTag}}<a href="/{{urlTag}}/{{_id}}">{{fields.title}}</a>{{/urlTag}}
 	  {{^urlTag}}<a href="/{{_id}}">{{fields.title}}</a>{{/urlTag}} 
 	  <small> {{fields.postedOn}}, {{fields.wordCount}} words</small></p>
         
       </li>
-      {{/archives}}
+      {{/render_data}}
     </ol>
     <hr/>
     <footer>

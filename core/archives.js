@@ -5,13 +5,15 @@ var mustache = require('mustache');
 var fs = require("fs-extra");
 var whitelist = require("../preferences").preferences.whitelist;
 var _ = require("underscore");
+var blacklist = ["wrinq"];
 
 exports.getArchives = function(req,res,api){
     request(buildArchivesQuery(),function(error,response,body){
 
 	if(error||!body) res.send(500);
+	var data =  buildResponse(body.hits.hits);
 	
-	var data = buildResponse(body.hits.hits);
+
 	if(api){return res.json(data);}
 	var temp =  fs.readFileSync('views/archives_template.html');
 	var header = fs.readFileSync('views/header.html');
@@ -83,7 +85,18 @@ function buildResponse(data){
 	});
 	return item;
     });
+    var data_true = _.reject(data,function(data){
+	var data_tags = data.fields.tags;
+	
+	if(!data_tags)return false;
+	if(data_tags){
 
+	    var pure_tags = _.intersection(data_tags,blacklist);
+	    console.log(pure_tags);
+	    return pure_tags.length===blacklist.length?true:false;
+	}	
+    });
     
-    return {archives:data,archiveTags: uniqueTags};
+    
+    return {archives:data,archiveTags: uniqueTags,render_data:data_true};
 }
