@@ -21,6 +21,7 @@ exports.postDetail = function(req,res){
 		    if(whitelist.hasOwnProperty(element)){
 			var temp_special_path = whitelist[element]+'post_template.html';
 			var temp_special = fs.existsSync(temp_special_path)?fs.readFileSync(temp_special_path):temp;
+			console.log(temp_special.toString());
 			parsed.urlTag = element;
 			var render =mustache.render(temp_special.toString(),parsed);	   
 			fs.outputFileSync(whitelist[element]+parsed._id+"/index.html",render);

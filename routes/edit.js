@@ -23,12 +23,12 @@ function buildData(parsed){
      id : parsed._id,
      postedOn : parsed._source.postedOn,
 	 tags : getTags(parsed._source.tags)
-}
+};
  
  return item;
 }
  
 function getTags(tags){
 	
-	return tags ? tags.join() : undefined
+	return tags ? tags.join() : undefined;
 }

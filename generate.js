@@ -28,13 +28,17 @@ request(url,function(error,response,body){
 	//First handle the rendering of tagged files
 	if(tags&&tags.length>0){
 	     tags.forEach(function(tag){
-		 var render =mustache.render(temp.toString(),hit);		    
+				    
 		 if(whitelist.hasOwnProperty(tag)){
-		     console.log("tag rendering at: " +whitelist[tag]+id+'/index.html');
+		     var temp_special_path = whitelist[tag]+'post_template.html';
+		     var temp_special = fs.existsSync(temp_special_path)?fs.readFileSync(temp_special_path):temp;
+		      var render_temp =mustache.render(temp_special.toString(),hit);
+		     console.log("tag rendering at: " +temp_special+'/index.html');
 		     hit.urlTag = true;
-		     fs.outputFileSync(whitelist[tag]+id+'/index.html',render);
+		     fs.outputFileSync(whitelist[tag]+id+'/index.html',render_temp);
 		 }
 		 if(!whitelist.hasOwnProperty(tag)){
+		      var render =mustache.render(temp.toString(),hit);
 		     console.log("rendering tagged blacklisted post "+i.toString());
 		     fs.outputFileSync('/home/akshat/Repo/staticshin/'+id+'/index.html',render);
 
