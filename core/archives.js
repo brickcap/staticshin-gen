@@ -92,7 +92,6 @@ function buildResponse(data){
 	if(data_tags){
 
 	    var pure_tags = _.intersection(data_tags,blacklist);
-	    console.log(pure_tags);
 	    return pure_tags.length===blacklist.length?true:false;
 	}	
     });

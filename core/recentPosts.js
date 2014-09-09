@@ -55,7 +55,7 @@ function getRecentPostsQueryData(pageNo,paginationSize){
 	   "fields" : preferences.index.pageFields,
 	"filter" : {
         "script" : {
-            "script" : "doc['tags'].values.contains('programming')==false"
+            "script" : "(doc['tags'].values.contains('programming')||doc['tags'].values.contains('wrinq'))==false"
         }
 }
     };
