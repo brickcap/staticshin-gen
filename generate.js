@@ -41,8 +41,7 @@ request(url,function(error,response,body){
 		 }
 	    });
 	}
-	// okay now no more tags are left. Render away
-	
+	// okay now no more tags are left. Render away	
 	//if there are tags the length must be zero other wise tags can be undefined. 
 	//There should be no arguments supplied by the command line as well
 
