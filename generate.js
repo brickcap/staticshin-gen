@@ -8,11 +8,14 @@ var renderString = fs.readFileSync("/home/akshat/Repo/staticshin/about.html");
 var header = fs.readFileSync("/home/akshat/Repo/staticshin-gen/views/header.html");
 var rendered = mustache.render(renderString.toString(),{head:header});
 
-var argument = "";
-var url = "http://localhost:9200/blog/_search?pretty=true&q=tags:"+argument;
+var argument = process.argv[2];
+var url = argument?"http://localhost:9200/blog/_search?pretty=true&q=tags:"+argument:
+    "http://localhost:9200/blog/_search?size=100000";
+
 fs.outputFileSync('/home/akshat/Repo/staticshin/about.html',rendered);
 
-request("http://localhost:9200/blog/_search?size=79",function(error,response,body){
+request(url,function(error,response,body){
+    console.log(argument);
     var parsed = JSON.parse(body);
     var hits = parsed.hits.hits;
     //console.log(hits[0]);
@@ -39,7 +42,7 @@ request("http://localhost:9200/blog/_search?size=79",function(error,response,bod
 	    });
 	};
 	if(!hit._source.tags){
-	    	var render =mustache.render(temp.toString(),hit);
+	    var render =mustache.render(temp.toString(),hit);
 
 	    fs.outputFileSync('/home/akshat/Repo/staticshin/'+id+'/index.html',render);
 	}
