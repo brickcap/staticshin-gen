@@ -30,11 +30,12 @@ request(url,function(error,response,body){
 	     tags.forEach(function(tag){
 				    
 		 if(whitelist.hasOwnProperty(tag)){
+		      hit.urlTag = true;
 		     var temp_special_path = whitelist[tag]+'post_template.html';
 		     var temp_special = fs.existsSync(temp_special_path)?fs.readFileSync(temp_special_path):temp;
 		      var render_temp =mustache.render(temp_special.toString(),hit);
 		     console.log("tag rendering at: " +temp_special+'/index.html');
-		     hit.urlTag = true;
+		    
 		     fs.outputFileSync(whitelist[tag]+id+'/index.html',render_temp);
 		 }
 		 if(!whitelist.hasOwnProperty(tag)){
