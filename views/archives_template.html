@@ -11,13 +11,45 @@
     
     <ol class="post">
       {{#render_data}}
-      <li><p>
+      <li>
+	<p>
 	  {{#urlTag}}<a href="/{{urlTag}}/{{_id}}">{{fields.title}}</a>{{/urlTag}}
 	  {{^urlTag}}<a href="/{{_id}}">{{fields.title}}</a>{{/urlTag}} 
-	  <small> {{fields.postedOn}}, {{fields.wordCount}} words</small></p>
-        
+	  <small> {{fields.postedOn}}, {{fields.wordCount}} words</small>
+	</p>
       </li>
       {{/render_data}}
+      <li>
+	<p>
+	  <a href="/minimal-nginx-configuration-for-front-end-development">Minimal nginx configuration for front end development</a> 
+	  <small> Fri Mar 21 2014, 1828 words</small>
+	</p>        
+      </li>
+       <li><p>
+	  
+	  <a href="/erlang-is-very-addictive">Erlang is very addictive</a> 
+	  <small> Wed Aug 07 2013, 440 words</small></p>
+        
+       </li>
+        <li><p>
+	  
+	  <a href="/getting-comfortable-with-erlang-cowboy">Getting comfortable with erlang, cowboy?</a> 
+	  <small> Wed Nov 06 2013, 830 words</small></p>
+        
+	</li>
+	 <li><p>
+	  
+	  <a href="/understanding-punctuation-in-erlang">Understanding punctuation in erlang</a> 
+	  <small> Wed Nov 13 2013, 634 words</small></p>
+        
+	 </li>
+<li><p>
+	  
+	  <a href="/wrinqle-a-library-that-combines-gen_event-handler-and-web-sockets-in-cowboy">Wrinqle a library that combines gen_events and web sockets in cowboy</a> 
+	  <small> Sat Nov 23 2013, 1044 words</small></p>
+        
+</li>
+
     </ol>
     <hr/>
     <footer>
