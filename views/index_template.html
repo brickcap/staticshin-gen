@@ -7,11 +7,10 @@
     <link href="./style.css" rel="stylesheet"/>
   </head>
   <body>
-    <!-- <header>{<a href="/">staticshin</a>,<a href="/about.html">about</a>,<a href="/archives.html">archives</a>}</header> -->
     {{{header}}}
     
     <div class="grid grid-pad">
-      <div class="col-8-12">
+      <div class="col-8-12 push-2-12">
     {{#hits}}
 	<h1 class="postHeading"><a href="/{{_id}}">{{fields.title}}</a></h1>
 	<div class="postMeta">-{{fields.postedOn}}</div>
