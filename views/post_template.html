@@ -9,13 +9,14 @@
     {{^urlTag}}<link href="../style.css" rel="stylesheet"/>{{/urlTag}}
   </head>
   <body>
-    {{{header}}}    
-    <div id="post">
-      <h1>{{_source.title}}</h1>
-      <span>{{_source.postedBy}},  {{_source.postedOn}}</span>
-      <div class="postBody">{{{_source.postHtml}}}</div>
+    {{{header}}}
+    <div class="grid grid-pad">
+      <div class="col-8-12 push-2-12">
+	<h1>{{_source.title}}</h1>
+	<span>{{_source.postedBy}},  {{_source.postedOn}}</span>
+	<div class="postBody">{{{_source.postHtml}}}</div>
+      </div>
     </div>
-
     <div id="disqus_thread"></div>
     <hr/>
     <footer>
@@ -24,7 +25,6 @@
     <noscript>
       Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
     </noscript>
-</div>
 <div>
   <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
