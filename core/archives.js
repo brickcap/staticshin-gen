@@ -8,6 +8,9 @@ var _ = require("underscore");
 var blacklist = ["wrinq"];
 
 exports.getArchives = function(req,res,api){
+    request.get("/feed_tagged/rss");
+    request.get("/feed/rss");
+    request.get("feed/atom");
     request(buildArchivesQuery(),function(error,response,body){
 
 	if(error||!body) res.send(500);
