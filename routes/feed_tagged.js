@@ -15,7 +15,6 @@ exports.get_tagged_feeds = function(req,res){
 	var rssPreferred = feedPref.rss;
 	request(headers,function(error,response,body){
 	    var path = preferences.whitelist[key];
-	    console.log(path);
 	    var feed = buildFeed(key);
 	    buildResponse(body.hits.hits,feed,key);
 	    var rss_render = feed.render("rss-2.0");
