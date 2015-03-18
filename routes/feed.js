@@ -16,7 +16,7 @@ exports.getFeeds = function(req,res){
 	var atomPreferred = feedPref.atom;
 	var rssPreferred = feedPref.rss;
 	
-	if(!(rssPreferred||atomPreferred)){return res.send(404)};
+	if(!(rssPreferred||atomPreferred)){return res.send(404);};
 	
 	request(headers,function(error,response,body){
 		
@@ -80,8 +80,8 @@ function buildResponse(data,feed){
 			description : helpers.getPostSummary(item.fields.postHtml,feedPref.summaryLength),
 			author : [
 				{
-					name : item.fields.postedBy,
-				},			
+					name : item.fields.postedBy
+				}			
 			
 			],
 		date : 	new Date(item.fields.postedOn)		
