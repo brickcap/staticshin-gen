@@ -3,7 +3,7 @@ var request = require('request');
 var preferences = require('../preferences').preferences;
 var helpers = require('../helpers');
 var constants = require('../constants');
-
+var fs = require("fs");
 var feedPref = preferences.feed;
 
 
@@ -22,18 +22,20 @@ exports.getFeeds = function(req,res){
 	
 	if(error||body.error) return res.send(500);
 
-	
+	var rss_render = feed.render('rss-2.0');
+	var atom_render = feed.render('atom-1.0');
 	var feed = buildFeed();
-	
+	fs.outputFileSync('/home/akshat/Repo/staticshin/rss.xml',rss_render);
+	fs.outputFileSync('/home/akshat/Repo/staticshin/atom.xml',atom_render);
 	buildResponse(body.hits.hits,feed);
 	
 	if(type === 'rss'&& rssPreferred){ 
 	    res.set('Content-type','application/rss+xml');
-	    return res.send(feed.render('rss-2.0'));
+	    return res.send(rss_render);
 	}
 	if(type === 'atom' && atomPreferred){
 	    res.set('Content-type','application/atom+xml');
-	    return res.send(feed.render('atom-1.0'));}
+	    return res.send(atom_render);}
 	return res.send(404);
     });
     return null;	
