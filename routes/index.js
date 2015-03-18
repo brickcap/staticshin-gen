@@ -8,3 +8,4 @@ exports.delete = require('./deletePost');
 exports.feeds = require('./feed');
 exports.tags = require('./tags');
 exports.archives = require('./archives');
+exports.tagged_feed = require('./feed_tagged');

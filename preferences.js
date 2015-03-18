@@ -38,7 +38,7 @@ exports.preferences = {
 	"summaryLength" : 2,
 	author: {
             'name':       'Akshat Jiwan Sharma',
-            'email':      'akshat_fullmetal@yahoo.co.in',
+            'email':      'akshatjiwan@gmail.com',
             'link':       'http://www.staticshin.com/'
 	}	
     },
