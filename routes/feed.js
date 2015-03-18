@@ -13,8 +13,10 @@ exports.getFeeds = function(req,res){
     var type = req.params.type;
     var url = constants.queries.search();
     var headers = helpers.setHeaders(url,getRecentFeedsQuery());
+    var atomPreferred = feedPref.atom;
+    var rssPreferred = feedPref.rss;
     
-    if(!(feedPref.atom||feedPref.rss)){return res.send(404);};
+    if(!(rssPreferred||atomPreferred)){return res.send(404);};
     
     request(headers,function(error,response,body){
 	
