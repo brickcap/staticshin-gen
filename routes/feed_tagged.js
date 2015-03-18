@@ -8,33 +8,20 @@ var feedPref = preferences.feed;
 
 exports.get_tagged_feeds = function(req,res){
     for(var key in preferences.whitelist){
-	var path = preferences.whitelist[key];
 	var type = req.params.type;
 	var url = constants.queries.search();
 	var headers = helpers.setHeaders(url,getRecentFeedsQuery(key));
 	var atomPreferred = feedPref.atom;
 	var rssPreferred = feedPref.rss;
-	if(!(rssPreferred||atomPreferred)){return res.send(404);};
-	
 	request(headers,function(error,response,body){
-	    
-	    
-	    var feed = buildFeed();
-	    
-	    buildResponse(body.hits.hits,feed);
-	    
-	    if(type === 'rss'&& rssPreferred){ 
-		res.set('Content-type','application/rss+xml');
-		var rss_render = feed.render("rss-2.0");
-		fs.outputFileSync(path+'/rss.xml',rss_render);
-
-		
-	    }
-	    if(type === 'atom' && atomPreferred){
-		res.set('Content-type','application/atom+xml');
-		var atom_render = feed.render('atom-1.0');
-		fs.outputFileSync(path+'/atom.xml',atom_render);
-	    }
+	    var path = preferences.whitelist[key];
+	    console.log(path);
+	    var feed = buildFeed(key);
+	    buildResponse(body.hits.hits,feed,key);
+	    var rss_render = feed.render("rss-2.0");
+	    var atom_render = feed.render('atom-1.0');
+	    fs.writeFileSync(path+'/rss.xml',rss_render);
+	    fs.writeFileSync(path+'/atom.xml',atom_render);
 
 	});
 	
@@ -60,7 +47,7 @@ function getRecentFeedsQuery(tag){
     return queryData;
 }
 
-function buildResponse(data,feed){
+function buildResponse(data,feed,tag){
     
     for(var i = 0; i<data.length;i++){
 	
@@ -69,7 +56,7 @@ function buildResponse(data,feed){
 	feed.item({
 	    
 	    title : item.fields.title,
-	    link: feedPref.link + item._id,
+	    link: tag==="wrinq"?"http://www.wrinq.com/blog"+item._id:feedPref.link_item._id,
 	    description : helpers.getPostSummary(item.fields.postHtml,feedPref.summaryLength),
 	    author : [
 		{
@@ -77,22 +64,22 @@ function buildResponse(data,feed){
 		}			
 		
 	    ],
-	    date : 	new Date(item.fields.postedOn)		
+	    date :new Date(item.fields.postedOn)		
 	    
 	});
     }
     
     
 }
-function buildFeed(){
-
+function buildFeed(tag){
+   
     var feed = new feedBuilder({
 	
     	title:feedPref.title,
 	
     	description:feedPref.description,
 	
-    	link:feedPref.link,
+    	link:tag==="wrinq"?"http://www.wrinq.com/":feedPref.link,
 	
 	author : feedPref.author
 	

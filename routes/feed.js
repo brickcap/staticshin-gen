@@ -25,9 +25,9 @@ exports.getFeeds = function(req,res){
 	var rss_render = feed.render('rss-2.0');
 	var atom_render = feed.render('atom-1.0');
 	var feed = buildFeed();
-	fs.outputFileSync('/home/akshat/Repo/staticshin/rss.xml',rss_render);
-	fs.outputFileSync('/home/akshat/Repo/staticshin/atom.xml',atom_render);
 	buildResponse(body.hits.hits,feed);
+	fs.writeFileSync('/home/akshat/Repo/staticshin/rss.xml',rss_render);
+	fs.writeFileSync('/home/akshat/Repo/staticshin/atom.xml',atom_render);
 	
 	if(type === 'rss'&& rssPreferred){ 
 	    res.set('Content-type','application/rss+xml');
@@ -35,7 +35,8 @@ exports.getFeeds = function(req,res){
 	}
 	if(type === 'atom' && atomPreferred){
 	    res.set('Content-type','application/atom+xml');
-	    return res.send(atom_render);}
+	    return res.send(atom_render);
+	}
 	return res.send(404);
     });
     return null;	
