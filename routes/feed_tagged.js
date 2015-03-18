@@ -8,22 +8,24 @@ var feedPref = preferences.feed;
 
 exports.get_tagged_feeds = function(req,res){
     for(var key in preferences.whitelist){
-	var type = req.params.type;
-	var url = constants.queries.search();
-	var headers = helpers.setHeaders(url,getRecentFeedsQuery(key));
-	var atomPreferred = feedPref.atom;
-	var rssPreferred = feedPref.rss;
-	request(headers,function(error,response,body){
-	    var path = preferences.whitelist[key];
-	    var feed = buildFeed(key);
-	    buildResponse(body.hits.hits,feed,key);
-	    var rss_render = feed.render("rss-2.0");
-	    var atom_render = feed.render('atom-1.0');
-	    fs.writeFileSync(path+'/rss.xml',rss_render);
-	    fs.writeFileSync(path+'/atom.xml',atom_render);
+	(function(key){
+	    var type = req.params.type;
+	    var url = constants.queries.search();
+	    var headers = helpers.setHeaders(url,getRecentFeedsQuery(key));
+	    var atomPreferred = feedPref.atom;
+	    var rssPreferred = feedPref.rss;
+	    request(headers,function(error,response,body){
+		var path = preferences.whitelist[key];
+		console.log(path);
+		var feed = buildFeed(key);
+		buildResponse(body.hits.hits,feed,key);
+		var rss_render = feed.render("rss-2.0");
+		var atom_render = feed.render('atom-1.0');
+		fs.writeFileSync(path+'/rss.xml',rss_render);
+		fs.writeFileSync(path+'/atom.xml',atom_render);
 
-	});
-	
+	    });
+	})(key);
     }
     return res.send(200);
 };
@@ -55,7 +57,7 @@ function buildResponse(data,feed,tag){
 	feed.item({
 	    
 	    title : item.fields.title,
-	    link: tag==="wrinq"?"http://www.wrinq.com/blog"+item._id:feedPref.link_item._id,
+	    link: tag==="wrinq"?"http://www.wrinq.com/blog"+item._id:feedPref.link+tag+"/"+item._id,
 	    description : helpers.getPostSummary(item.fields.postHtml,feedPref.summaryLength),
 	    author : [
 		{
