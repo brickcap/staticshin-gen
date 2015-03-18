@@ -22,10 +22,10 @@ exports.getFeeds = function(req,res){
 	
 	if(error||body.error) return res.send(500);
 
-	var rss_render = feed.render('rss-2.0');
-	var atom_render = feed.render('atom-1.0');
 	var feed = buildFeed();
 	buildResponse(body.hits.hits,feed);
+	var rss_render = feed.render('rss-2.0');
+	var atom_render = feed.render('atom-1.0');
 	fs.writeFileSync('/home/akshat/Repo/staticshin/rss.xml',rss_render);
 	fs.writeFileSync('/home/akshat/Repo/staticshin/atom.xml',atom_render);
 	
@@ -86,7 +86,7 @@ function buildResponse(data,feed){
 	feed.item({
 	    
 	    title : item.fields.title,
-	    link: feedPref.link + item._id,
+	    link:item.fields.tags?feedPref.link +item.fields.tags[0]+"/"+item._id:feedPref.link+item._id,
 	    description : helpers.getPostSummary(item.fields.postHtml,feedPref.summaryLength),
 	    author : [
 		{
