@@ -62,7 +62,7 @@ function getRecentFeedsQuery(){
     
     var queryData = {
 	"sort" :{ "postedOn" : {"order" : "desc"}},
-	"fields" :["postedOn","title","postedBy","postHtml"],
+	"fields" :["postedOn","title","postedBy","postHtml","tags"],
 	"from" : 0,
 	"query":{
 	    "bool":{
@@ -82,11 +82,11 @@ function buildResponse(data,feed){
     for(var i = 0; i<data.length;i++){
 	
 	var item = data[i];
-	
+	var white_tag = item.fields.tags[0];
 	feed.item({
 	    
 	    title : item.fields.title,
-	    link:item.fields.tags?feedPref.link +item.fields.tags[0]+"/"+item._id:feedPref.link+item._id,
+	    link:white_tag?feedPref.link +white_tag+"/"+item._id:feedPref.link+item._id,
 	    description : helpers.getPostSummary(item.fields.postHtml,feedPref.summaryLength),
 	    author : [
 		{
