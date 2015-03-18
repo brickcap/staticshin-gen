@@ -59,9 +59,16 @@ function getRecentFeedsQuery(){
     
     var queryData = {
 	"sort" :{ "postedOn" : {"order" : "desc"}},
-	"fields" :['postedOn','title','postedBy','postHtml'],
+	"fields" :["postedOn","title","postedBy","postHtml"],
 	"from" : 0,
-	"size" : feedPref.paginationSize
+	"query":{
+	    "bool":{
+		"must_not":{
+		    "terms":{"tags":["wrinq"]}
+		}
+	    }
+        },
+	"size" : 10
     };
     
     return queryData;
