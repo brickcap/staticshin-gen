@@ -3,7 +3,7 @@ var request = require('request');
 var preferences = require('../preferences').preferences;
 var helpers = require('../helpers');
 var constants = require('../constants');
-
+var fs = require("fs");
 var feedPref = preferences.feed;
 
 exports.get_tagged_feeds = function(req,res){
@@ -11,16 +11,13 @@ exports.get_tagged_feeds = function(req,res){
 	var path = preferences.whitelist[key];
 	var type = req.params.type;
 	var url = constants.queries.search();
-	var headers = helpers.setHeaders(url,getRecentFeedsQuery());
+	var headers = helpers.setHeaders(url,getRecentFeedsQuery(key));
 	var atomPreferred = feedPref.atom;
 	var rssPreferred = feedPref.rss;
-	
 	if(!(rssPreferred||atomPreferred)){return res.send(404);};
 	
 	request(headers,function(error,response,body){
 	    
-	    if(error||body.error) return res.send(500);
-
 	    
 	    var feed = buildFeed();
 	    
@@ -28,15 +25,21 @@ exports.get_tagged_feeds = function(req,res){
 	    
 	    if(type === 'rss'&& rssPreferred){ 
 		res.set('Content-type','application/rss+xml');
-		return res.send(feed.render('rss-2.0'));
+		var rss_render = feed.render("rss-2.0");
+		fs.outputFileSync(path+'/rss.xml',rss_render);
+
+		
 	    }
 	    if(type === 'atom' && atomPreferred){
 		res.set('Content-type','application/atom+xml');
-		return res.send(feed.render('atom-1.0'));}
-	    return res.send(404);
+		var atom_render = feed.render('atom-1.0');
+		fs.outputFileSync(path+'/atom.xml',atom_render);
+	    }
+
 	});
-	return null;
+	
     }
+    return res.send(200);
 };
 function getRecentFeedsQuery(tag){
     

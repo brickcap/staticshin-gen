@@ -17,7 +17,7 @@ exports.defineRoutes= function(app){
 
     // GET Routes 
     app.get('/blog/archives',routes.archives.getArchives);
-    app.get('/feed/:tag/:type',routes.tagged_feed.get_tagged_feeds);
+    app.get('/feed_tagged/:type',routes.tagged_feed.get_tagged_feeds);
     app.get('/feed/:type',routes.feeds.getFeeds);	
     app.get('/page/:page',routes.recentPosts.getRecentPosts);
     app.get('/tag/:tag',routes.tags.getTaggedPosts);
